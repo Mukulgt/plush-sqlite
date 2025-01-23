@@ -3,166 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plushoff - Fashion House</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+    <title>Plushoff - Luxury Women's Fashion</title>
+    <meta name="description" content="Premier destination for luxury women's clothing, offering a curated collection of sophisticated and trendy fashion pieces">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    
+    <!-- App Scripts -->
+    <script type="module" src="/js/app.js"></script>
 </head>
-<body class="font-sans">
-    <!-- Navigation -->
-    <nav class="bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <a href="index.html" class="flex items-center">
-                    <img src="images/logo.png" alt="Plushoff Logo" class="h-12">
-                </a>
-                
-                <div class="hidden md:flex space-x-8">
-                    <a href="index.html" class="text-gray-900 font-medium">HOME</a>
-                    <a href="products.html" class="text-gray-600 hover:text-gray-900 transition duration-300">SHOP</a>
-                    <a href="about.html" class="text-gray-600 hover:text-gray-900 transition duration-300">ABOUT</a>
-                    <a href="contact.html" class="text-gray-600 hover:text-gray-900 transition duration-300">CONTACT</a>
-                </div>
-                
-                <div class="md:hidden">
-                    <button class="text-gray-900">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+<body>
+    <!-- Header -->
+    <site-header></site-header>
+    
     <!-- Hero Section -->
-    <div class="hero bg-gray-50">
-        <div class="container mx-auto px-4 py-16">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="md:w-1/2 mb-8 md:mb-0 pr-0 md:pr-12">
-                    <h1 class="text-5xl font-bold mb-6 leading-tight">Plushoff<br><span class="font-serif italic">Fashion House</span></h1>
-                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">Discover our exclusive collection of designer coord sets, ethnic wear and contemporary fashion pieces crafted with elegance and style.</p>
-                    <a href="products.html" class="inline-block bg-gray-900 text-white px-8 py-3 rounded text-lg font-medium hover:bg-gray-800 transition duration-300">Explore Collection</a>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-1">20+</h3>
-                            <p class="text-gray-600">Online Products</p>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-1">100+</h3>
-                            <p class="text-gray-600">Happy Customers</p>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-1">500+</h3>
-                            <p class="text-gray-600">Total Collection</p>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-1">2+</h3>
-                            <p class="text-gray-600">Store Locations</p>
-                        </div>
-                    </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Elevate Your Style</h1>
+            <p>Discover our latest collection of sophisticated and trendy fashion pieces</p>
+            <a href="#featured" class="btn-primary">Shop Now</a>
+        </div>
+    </section>
+    
+    <!-- Featured Products -->
+    <section id="featured" class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Collection</h2>
+            <div class="product-grid">
+                <!-- Products will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Categories -->
+    <section class="section categories">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <a href="/category/anarkali-suits" class="category-card">
+                    <img src="/images/categories/anarkali.jpg" alt="Anarkali Suits">
+                    <h3>Anarkali Suits</h3>
+                </a>
+                <a href="/category/coord-sets" class="category-card">
+                    <img src="/images/categories/coords.jpg" alt="Coord Sets">
+                    <h3>Coord Sets</h3>
+                </a>
+                <a href="/category/western-wear" class="category-card">
+                    <img src="/images/categories/western.jpg" alt="Western Wear">
+                    <h3>Western Wear</h3>
+                </a>
+                <!-- More categories -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- New Arrivals -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">New Arrivals</h2>
+            <div class="product-grid">
+                <!-- Products will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Collection Banner -->
+    <section class="collection-banner">
+        <div class="banner-content">
+            <h2>Luxury Collection</h2>
+            <p>Exclusive pieces for the modern woman</p>
+            <a href="/collections/luxury" class="btn-secondary">Explore</a>
+        </div>
+    </section>
+    
+    <!-- Best Sellers -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Best Sellers</h2>
+            <div class="product-grid">
+                <!-- Products will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for exclusive offers and updates</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>About Plushoff</h3>
+                    <p>Premier destination for luxury women's clothing, offering a curated collection of sophisticated and trendy fashion pieces.</p>
                 </div>
                 
-                <div class="md:w-1/2 relative">
-                    <div class="relative h-[600px]">
-                        <img src="images/products/black couple nightsuits.webp" alt="Fashion" class="absolute top-0 right-0 w-4/5 h-[400px] object-cover rounded z-20">
-                        <img src="images/products/black printed coord set.webp" alt="Fashion" class="absolute top-[150px] -left-4 w-3/5 h-[300px] object-cover rounded z-10">
-                        <img src="images/products/blue 3 pc western coord set.webp" alt="Fashion" class="absolute bottom-0 right-12 w-3/5 h-[250px] object-cover rounded z-30">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Featured Products -->
-    <section class="featured-collections py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-8">Featured Products</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="product-card group">
-                    <div class="relative overflow-hidden rounded bg-gray-100">
-                        <img src="images/products/bandini suit set with mirror work 2.webp" alt="Luxury Velvet Coord Set" class="w-full h-96 object-cover">
-                    </div>
-                    <div class="mt-4">
-                        <h3 class="text-lg font-medium mb-1">Black Velvet Coord Set</h3>
-                        <p class="text-gray-900">₹4,999</p>
-                    </div>
-                </div>
-                <div class="product-card group">
-                    <div class="relative overflow-hidden rounded bg-gray-100">
-                        <img src="images/products/A line anarkali set 1.webp" alt="Designer Anarkali Set" class="w-full h-96 object-cover">
-                    </div>
-                    <div class="mt-4">
-                        <h3 class="text-lg font-medium mb-1">Pink Anarkali Set</h3>
-                        <p class="text-gray-900">₹5,999</p>
-                    </div>
-                </div>
-                <div class="product-card group">
-                    <div class="relative overflow-hidden rounded bg-gray-100">
-                        <img src="images/products/drapped saree 1.webp" alt="Signature Draped Saree" class="w-full h-96 object-cover">
-                    </div>
-                    <div class="mt-4">
-                        <h3 class="text-lg font-medium mb-1">Design Coord with Bloue</h3>
-                        <p class="text-gray-900">₹7,999</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Shop by Category -->
-    <section class="categories py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-8">Shop by Category</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-200 rounded p-12 text-center hover:bg-gray-300 transition duration-300">
-                    <h3 class="text-xl font-medium text-gray-900">Coord Sets</h3>
-                </div>
-                <div class="bg-gray-200 rounded p-12 text-center hover:bg-gray-300 transition duration-300">
-                    <h3 class="text-xl font-medium text-gray-900">Ethnic Wear</h3>
-                </div>
-                <div class="bg-gray-200 rounded p-12 text-center hover:bg-gray-300 transition duration-300">
-                    <h3 class="text-xl font-medium text-gray-900">Dresses</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black text-white py-16">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h5 class="footer-title">Plushoff</h5>
-                    <p class="text-gray-400">Your premier destination for luxury women's fashion. Experience elegance, sophistication, and unparalleled quality.</p>
-                </div>
-                <div>
-                    <h6 class="footer-title">Quick Links</h6>
-                    <ul class="space-y-2">
-                        <li><a href="shop.html" class="footer-link">Shop</a></li>
-                        <li><a href="about.html" class="footer-link">About Us</a></li>
-                        <li><a href="contact.html" class="footer-link">Contact</a></li>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/new-arrivals">New Arrivals</a></li>
+                        <li><a href="/best-sellers">Best Sellers</a></li>
+                        <li><a href="/sale">Sale</a></li>
+                        <li><a href="/collections">Collections</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h6 class="footer-title">Legal</h6>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
-                        <li><a href="#" class="footer-link">Terms of Service</a></li>
-                        <li><a href="#" class="footer-link">Shipping Info</a></li>
+                
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/shipping">Shipping Info</a></li>
+                        <li><a href="/returns">Returns</a></li>
+                        <li><a href="/size-guide">Size Guide</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h6 class="footer-title">Contact Us</h6>
-                    <p class="text-gray-400 mb-2">Email: support@plushoff.in</p>
-                    <p class="text-gray-400 mb-2">Phone: +91 0000 123 4567</p>
-                    <p class="text-gray-400">Hours: 24/7 Support</p>
+                
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Pinterest</a>
+                    </div>
                 </div>
             </div>
-            <hr class="my-8 border-gray-800">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <p class="text-sm text-gray-400"> 2025 Plushoff. All rights reserved.</p>
-                <p class="text-sm text-gray-400">Development by MNMR</p>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Plushoff. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/terms">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>

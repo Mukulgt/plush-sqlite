@@ -212,6 +212,167 @@ app.post('/admin/products', authenticateToken, isAdmin, async (req, res) => {
     }
 });
 
+// Advanced Product Filters
+app.get('/products/filter', async (req, res) => {
+    try {
+        const {
+            category,
+            minPrice,
+            maxPrice,
+            colors,
+            sizes,
+            fabric,
+            inStock,
+            sort
+        } = req.query;
+
+        let sql = 'SELECT * FROM products WHERE 1=1';
+        const params = [];
+
+        if (category) {
+            sql += ' AND categoryId = ?';
+            params.push(category);
+        }
+
+        if (minPrice) {
+            sql += ' AND price >= ?';
+            params.push(minPrice);
+        }
+
+        if (maxPrice) {
+            sql += ' AND price <= ?';
+            params.push(maxPrice);
+        }
+
+        if (colors) {
+            sql += ' AND color IN (' + colors.split(',').map(() => '?').join(',') + ')';
+            params.push(...colors.split(','));
+        }
+
+        if (sizes) {
+            sql += ' AND size IN (' + sizes.split(',').map(() => '?').join(',') + ')';
+            params.push(...sizes.split(','));
+        }
+
+        if (fabric) {
+            sql += ' AND fabric = ?';
+            params.push(fabric);
+        }
+
+        if (inStock) {
+            sql += ' AND inStock = 1';
+        }
+
+        // Sorting
+        if (sort) {
+            switch (sort) {
+                case 'price_asc':
+                    sql += ' ORDER BY price ASC';
+                    break;
+                case 'price_desc':
+                    sql += ' ORDER BY price DESC';
+                    break;
+                case 'newest':
+                    sql += ' ORDER BY createdAt DESC';
+                    break;
+                case 'popular':
+                    sql += ' ORDER BY bestSeller DESC, createdAt DESC';
+                    break;
+            }
+        }
+
+        const products = await db.all(sql, params);
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Social Sharing
+app.post('/products/:id/share', async (req, res) => {
+    try {
+        const { platform } = req.body;
+        const product = await db.get('SELECT * FROM products WHERE id = ?', [req.params.id]);
+        
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        const shareUrls = {
+            facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${process.env.SITE_URL}/products/${product.slug}`)}`,
+            twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out ${product.name} at Plushoff!`)}&url=${encodeURIComponent(`${process.env.SITE_URL}/products/${product.slug}`)}`,
+            pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(`${process.env.SITE_URL}/products/${product.slug}`)}&media=${encodeURIComponent(product.image)}&description=${encodeURIComponent(product.description)}`,
+            whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(`Check out ${product.name} at Plushoff: ${process.env.SITE_URL}/products/${product.slug}`)}`
+        };
+
+        // Track share analytics
+        await db.run('INSERT INTO social_shares (productId, platform) VALUES (?, ?)', 
+            [product.id, platform]);
+
+        res.json({ url: shareUrls[platform] });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Recently Viewed Products
+app.post('/products/:id/view', authenticateToken, async (req, res) => {
+    try {
+        await db.run(`
+            INSERT INTO product_views (userId, productId, viewedAt)
+            VALUES (?, ?, CURRENT_TIMESTAMP)
+        `, [req.user.id, req.params.id]);
+        res.status(200).json({ message: 'View recorded' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/products/recently-viewed', authenticateToken, async (req, res) => {
+    try {
+        const products = await db.all(`
+            SELECT p.*, v.viewedAt
+            FROM products p
+            JOIN product_views v ON p.id = v.productId
+            WHERE v.userId = ?
+            ORDER BY v.viewedAt DESC
+            LIMIT 10
+        `, [req.user.id]);
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Product Reviews
+app.post('/products/:id/reviews', authenticateToken, async (req, res) => {
+    try {
+        const { rating, comment } = req.body;
+        await db.run(`
+            INSERT INTO product_reviews (productId, userId, rating, comment)
+            VALUES (?, ?, ?, ?)
+        `, [req.params.id, req.user.id, rating, comment]);
+        res.status(201).json({ message: 'Review added successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/products/:id/reviews', async (req, res) => {
+    try {
+        const reviews = await db.all(`
+            SELECT r.*, u.name as userName
+            FROM product_reviews r
+            JOIN users u ON r.userId = u.id
+            WHERE r.productId = ?
+            ORDER BY r.createdAt DESC
+        `, [req.params.id]);
+        res.json(reviews);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // Size Guide
 app.get('/size-guide/:category', async (req, res) => {
     const sizeGuides = {
