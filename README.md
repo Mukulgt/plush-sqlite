@@ -1,33 +1,46 @@
-# Plush Store with SQLite
+# Plushoff - Luxury Women's Fashion
 
-A lightweight e-commerce platform built with Node.js, Express, and SQLite. Perfect for small to medium-sized online stores.
+Plushoff is your premier destination for luxury women's clothing, offering a curated collection of sophisticated, trendy, and high-quality fashion pieces. Our platform combines elegant design with a seamless shopping experience to bring you the best in women's fashion.
 
 ## Features
 
-### Core Features
-- 🛍️ Product management
-- 👤 User authentication
-- 🛒 Shopping cart
-- 📦 Order management
-- 🔐 Admin panel
+### Shopping Experience
+- 🛍️ Curated luxury fashion collection
+- 🔍 Advanced product search with filters
+- 👗 Detailed product categorization
+- 📱 Responsive design for all devices
+- 💫 Real-time stock updates
 
-### Advanced Features
-- 🔍 Advanced product search and filtering
-- 📊 Analytics dashboard for sales and user behavior
-- 🔒 Enhanced security features
-- 💾 Automatic database backups
-- 📈 Performance optimizations
+### Customer Features
+- 👤 Personalized user accounts
+- 🛒 Seamless shopping cart
+- 💝 Wishlist functionality
+- 📦 Order tracking
+- 💳 Secure checkout process
 
-## Security Features
-- SQL injection prevention
-- Rate limiting
-- Input sanitization
-- JWT authentication
-- Password hashing
-- Security headers with Helmet
-- Request size limiting
+### Admin Dashboard
+- 📊 Sales analytics
+- 📈 Customer insights
+- 📦 Inventory management
+- 🎯 Product management
+- 📨 Order processing
 
-## Installation
+### Technical Features
+- 🔒 Enhanced security
+- 💾 Automatic backups
+- ⚡ Performance optimizations
+- 📱 Mobile-responsive design
+- 🔍 SEO optimization
+
+## Technology Stack
+
+- **Backend**: Node.js, Express
+- **Database**: SQLite
+- **Security**: JWT, bcrypt, Helmet
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Tools**: Webpack, Tailwind CSS
+
+## Getting Started
 
 ```bash
 # Clone the repository
@@ -36,32 +49,48 @@ git clone https://github.com/Mukulgt/plush-sqlite.git
 # Install dependencies
 npm install
 
-# Create environment file
+# Set up environment variables
 cp .env.example .env
 
-# Start the server
+# Start the development server
+npm run dev
+
+# For production
+npm run build
 npm start
 ```
 
-## API Endpoints
+## API Documentation
 
 ### Authentication
-- POST `/register` - Register new user
+- POST `/register` - Create new account
 - POST `/login` - User login
+- GET `/profile` - Get user profile
 
 ### Products
 - GET `/products` - List all products
 - GET `/products/search` - Search products
-- POST `/admin/products` - Add new product (Admin)
+- GET `/products/:id` - Get product details
 
 ### Orders
 - POST `/orders` - Create order
-- GET `/orders` - Get user orders
-- GET `/admin/orders` - Get all orders (Admin)
+- GET `/orders` - List user orders
+- GET `/orders/:id` - Get order details
 
-### Analytics (Admin)
-- GET `/admin/analytics/products` - Product analytics
-- GET `/admin/analytics/users` - User analytics
+### Admin Routes
+- POST `/admin/products` - Add product
+- GET `/admin/analytics` - View analytics
+- POST `/admin/backup` - Create backup
+
+## Security Features
+
+- Rate limiting
+- SQL injection prevention
+- Input validation
+- JWT authentication
+- Password hashing
+- Security headers
+- Request size limiting
 
 ## Environment Variables
 
@@ -71,13 +100,28 @@ JWT_SECRET=your-secret-key
 NODE_ENV=development
 ```
 
-## Database Backups
+## Database Management
+
 - Automatic backups every 6 hours
-- Manual backup via `/admin/backup` endpoint
-- Last 5 backups retained
+- Manual backup option
+- Data validation
+- Transaction support
+- Foreign key constraints
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first.
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Support
+
+For support, email support@plushoff.com or open an issue on GitHub.

@@ -1,7 +1,7 @@
 {
-  "name": "plushoff-store",
+  "name": "plushoff",
   "version": "1.0.0",
-  "description": "Luxury Women's Clothing Store",
+  "description": "Premier destination for luxury women's clothing, offering a curated collection of sophisticated and trendy fashion pieces",
   "main": "src/js/main.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve",
