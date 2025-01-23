@@ -163,10 +163,107 @@ app.get('/products/search', async (req, res) => {
     }
 });
 
+app.get('/products/featured', async (req, res) => {
+    try {
+        const products = await db.all('SELECT * FROM products WHERE featured = 1');
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/products/new-arrivals', async (req, res) => {
+    try {
+        const products = await db.all('SELECT * FROM products WHERE newArrival = 1');
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/products/best-sellers', async (req, res) => {
+    try {
+        const products = await db.all('SELECT * FROM products WHERE bestSeller = 1');
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/products/category/:slug', async (req, res) => {
+    try {
+        const products = await db.all(`
+            SELECT p.* FROM products p
+            JOIN categories c ON p.categoryId = c.id
+            WHERE c.slug = ?
+        `, [req.params.slug]);
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 app.post('/admin/products', authenticateToken, isAdmin, async (req, res) => {
     try {
         const result = await db.createProduct(req.body);
         res.status(201).json({ id: result.lastID });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Size Guide
+app.get('/size-guide/:category', async (req, res) => {
+    const sizeGuides = {
+        'anarkali-suits': {
+            'XS': { bust: '32"', waist: '26"', hip: '35"' },
+            'S':  { bust: '34"', waist: '28"', hip: '37"' },
+            'M':  { bust: '36"', waist: '30"', hip: '39"' },
+            'L':  { bust: '38"', waist: '32"', hip: '41"' },
+            'XL': { bust: '40"', waist: '34"', hip: '43"' }
+        },
+        'western-wear': {
+            'XS': { bust: '32"', waist: '25"', hip: '35"' },
+            'S':  { bust: '34"', waist: '27"', hip: '37"' },
+            'M':  { bust: '36"', waist: '29"', hip: '39"' },
+            'L':  { bust: '38"', waist: '31"', hip: '41"' },
+            'XL': { bust: '40"', waist: '33"', hip: '43"' }
+        }
+    };
+    
+    res.json(sizeGuides[req.params.category] || {});
+});
+
+// Wishlist routes
+app.post('/wishlist', authenticateToken, async (req, res) => {
+    try {
+        await db.run('INSERT INTO wishlists (userId, productId) VALUES (?, ?)', 
+            [req.user.id, req.body.productId]);
+        res.status(201).json({ message: 'Added to wishlist' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.get('/wishlist', authenticateToken, async (req, res) => {
+    try {
+        const items = await db.all(`
+            SELECT p.* FROM products p
+            JOIN wishlists w ON p.id = w.productId
+            WHERE w.userId = ?
+        `, [req.user.id]);
+        res.json(items);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Newsletter subscription
+app.post('/newsletter', async (req, res) => {
+    try {
+        await db.run('INSERT INTO newsletter_subscribers (email) VALUES (?)', 
+            [req.body.email]);
+        res.status(201).json({ message: 'Subscribed successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

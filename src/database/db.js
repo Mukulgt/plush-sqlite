@@ -12,16 +12,55 @@ const db = new sqlite3.Database(path.join(__dirname, 'store.db'), (err) => {
 
 // Create tables
 db.serialize(() => {
-    // Products table
+    // Categories table
+    db.run(`CREATE TABLE IF NOT EXISTS categories (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        slug TEXT UNIQUE NOT NULL,
+        description TEXT,
+        image TEXT,
+        parentId INTEGER,
+        FOREIGN KEY (parentId) REFERENCES categories(id)
+    )`);
+
+    // Products table with enhanced fields
     db.run(`CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
+        slug TEXT UNIQUE NOT NULL,
         price REAL NOT NULL,
+        salePrice REAL,
         description TEXT,
-        category TEXT,
+        categoryId INTEGER,
+        fabric TEXT,
+        care TEXT,
+        size TEXT,
+        color TEXT,
         inStock BOOLEAN DEFAULT 1,
-        image TEXT
+        featured BOOLEAN DEFAULT 0,
+        newArrival BOOLEAN DEFAULT 0,
+        bestSeller BOOLEAN DEFAULT 0,
+        image TEXT,
+        images TEXT,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (categoryId) REFERENCES categories(id)
     )`);
+
+    // Insert default categories
+    const categories = [
+        { name: 'Anarkali Suits', slug: 'anarkali-suits', description: 'Elegant Anarkali suits for every occasion' },
+        { name: 'Coord Sets', slug: 'coord-sets', description: 'Trendy and comfortable coord sets' },
+        { name: 'Western Wear', slug: 'western-wear', description: 'Modern western fashion pieces' },
+        { name: 'Blazer Sets', slug: 'blazer-sets', description: 'Sophisticated blazer sets for a powerful look' },
+        { name: 'Ethnic Wear', slug: 'ethnic-wear', description: 'Traditional ethnic wear with modern touch' },
+        { name: 'Luxury Collection', slug: 'luxury-collection', description: 'Premium luxury fashion pieces' }
+    ];
+
+    categories.forEach(category => {
+        db.run(`INSERT OR IGNORE INTO categories (name, slug, description) VALUES (?, ?, ?)`,
+            [category.name, category.slug, category.description]);
+    });
 
     // Users table
     db.run(`CREATE TABLE IF NOT EXISTS users (
@@ -55,7 +94,7 @@ db.serialize(() => {
 
     // Create indexes for better performance
     db.run('CREATE INDEX IF NOT EXISTS idx_user_email ON users(email)');
-    db.run('CREATE INDEX IF NOT EXISTS idx_product_category ON products(category)');
+    db.run('CREATE INDEX IF NOT EXISTS idx_product_category ON products(categoryId)');
     db.run('CREATE INDEX IF NOT EXISTS idx_order_user ON orders(userId)');
 });
 
@@ -96,7 +135,8 @@ dbAsync.getAllProducts = () => {
 };
 
 dbAsync.createProduct = (productData) => {
-    return dbAsync.run('INSERT INTO products (name, price, description, category, inStock, image) VALUES (?, ?, ?, ?, ?, ?)', [productData.name, productData.price, productData.description, productData.category, productData.inStock, productData.image]);
+    return dbAsync.run('INSERT INTO products (name, slug, price, salePrice, description, categoryId, fabric, care, size, color, inStock, featured, newArrival, bestSeller, image, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+        [productData.name, productData.slug, productData.price, productData.salePrice, productData.description, productData.categoryId, productData.fabric, productData.care, productData.size, productData.color, productData.inStock, productData.featured, productData.newArrival, productData.bestSeller, productData.image, productData.images]);
 };
 
 // Order operations
