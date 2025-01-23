@@ -2,6 +2,8 @@
 import './components/ProductCard.js';
 import './components/CategoryFilter.js';
 import './components/Header.js';
+import './components/CartSidebar.js';
+import './components/QuickView.js';
 
 class PlushoffApp {
     constructor() {
@@ -14,6 +16,8 @@ class PlushoffApp {
         this.header = document.querySelector('site-header');
         this.productGrid = document.querySelector('.product-grid');
         this.categoryFilter = document.querySelector('category-filter');
+        this.cartSidebar = document.querySelector('cart-sidebar');
+        this.quickView = document.querySelector('quick-view');
 
         // Add event listeners
         this.header.addEventListener('search', (e) => this.handleSearch(e.detail.searchTerm));
@@ -27,6 +31,158 @@ class PlushoffApp {
         await this.loadProducts();
         this.loadCart();
         this.loadWishlist();
+
+        // Initialize components
+        document.body.appendChild(this.cartSidebar);
+        document.body.appendChild(this.quickView);
+
+        // Cart functionality
+        let cartItems = [];
+
+        function updateCart(items) {
+            cartItems = items;
+            this.cartSidebar.updateCart(items);
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                cartCount.textContent = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            }
+        }
+
+        // Event listeners for cart
+        this.cartSidebar.addEventListener('update-quantity', (e) => {
+            const { id, action } = e.detail;
+            const item = cartItems.find(item => item.id === id);
+            if (item) {
+                if (action === 'increase') {
+                    item.quantity = Math.min(item.quantity + 1, 10);
+                } else {
+                    item.quantity = Math.max(item.quantity - 1, 1);
+                }
+                updateCart([...cartItems]);
+            }
+        });
+
+        this.cartSidebar.addEventListener('remove-item', (e) => {
+            const { id } = e.detail;
+            cartItems = cartItems.filter(item => item.id !== id);
+            updateCart(cartItems);
+        });
+
+        this.cartSidebar.addEventListener('checkout', () => {
+            // Implement checkout logic
+            console.log('Proceeding to checkout with items:', cartItems);
+        });
+
+        // Quick view functionality
+        this.quickView.addEventListener('add-to-cart', (e) => {
+            const { id, name, price, quantity, selectedSize, selectedColor, image } = e.detail;
+            const existingItem = cartItems.find(item => 
+                item.id === id && 
+                item.selectedSize === selectedSize && 
+                item.selectedColor === selectedColor
+            );
+
+            if (existingItem) {
+                existingItem.quantity = Math.min(existingItem.quantity + quantity, 10);
+            } else {
+                cartItems.push({
+                    id,
+                    name,
+                    price,
+                    quantity,
+                    selectedSize,
+                    selectedColor,
+                    image
+                });
+            }
+
+            updateCart([...cartItems]);
+            this.cartSidebar.open();
+        });
+
+        this.quickView.addEventListener('toggle-wishlist', (e) => {
+            const product = e.detail;
+            // Implement wishlist logic
+            console.log('Toggle wishlist for product:', product);
+        });
+
+        // Add animation classes to elements
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.classList.add('hover-lift');
+            
+            const quickViewBtn = card.querySelector('.quick-view-button');
+            if (quickViewBtn) {
+                quickViewBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const productData = {
+                        id: card.dataset.id,
+                        name: card.querySelector('.product-name').textContent,
+                        price: parseFloat(card.querySelector('.product-price').dataset.price),
+                        description: card.dataset.description,
+                        images: JSON.parse(card.dataset.images),
+                        colors: JSON.parse(card.dataset.colors)
+                    };
+                    this.quickView.open(productData);
+                });
+            }
+        });
+
+        // Add loading states
+        function showLoading(element) {
+            element.classList.add('loading');
+        }
+
+        function hideLoading(element) {
+            element.classList.remove('loading');
+        }
+
+        // Add page transitions
+        document.querySelectorAll('[data-page]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const currentPage = document.querySelector('.page.active');
+                const nextPage = document.querySelector(link.getAttribute('href'));
+                
+                if (currentPage && nextPage) {
+                    currentPage.classList.add('page-exit');
+                    currentPage.classList.add('page-exit-active');
+                    
+                    setTimeout(() => {
+                        currentPage.classList.remove('active', 'page-exit', 'page-exit-active');
+                        nextPage.classList.add('active', 'page-enter');
+                        
+                        requestAnimationFrame(() => {
+                            nextPage.classList.add('page-enter-active');
+                            setTimeout(() => {
+                                nextPage.classList.remove('page-enter', 'page-enter-active');
+                            }, 300);
+                        });
+                    }, 300);
+                }
+            });
+        });
+
+        // Initialize animations
+        document.querySelectorAll('.fade-in').forEach(element => {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.5s ease forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            observer.observe(element);
+        });
+
+        // Add button animations
+        document.querySelectorAll('button:not(.quantity-button):not(.close-button)').forEach(button => {
+            button.classList.add('animated-button');
+        });
     }
 
     async loadProducts(filters = {}) {
