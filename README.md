@@ -1,74 +1,83 @@
-# Plushoff Store Lite
+# Plush Store with SQLite
 
-A lightweight e-commerce platform built with modern technologies.
-
-## Tech Stack
-
-- **Frontend:**
-  - Next.js 14 (App Router)
-  - TypeScript
-  - Tailwind CSS
-  - Zustand (State Management)
-
-- **Backend:**
-  - Next.js API Routes
-  - Prisma ORM
-  - SQLite Database
-  - NextAuth.js v5
-
-## Getting Started
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/plushoff-store-lite.git
-cd plushoff-store-lite
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Set up the database:
-```bash
-npm run db:push
-```
-
-4. Start the development server:
-```bash
-npm run dev
-```
+A lightweight e-commerce platform built with Node.js, Express, and SQLite. Perfect for small to medium-sized online stores.
 
 ## Features
 
-- Static Site Generation for better performance
-- Dynamic product pages with client-side rendering
-- User authentication and authorization
-- Shopping cart functionality
-- Order management
-- Admin dashboard
-- Responsive design
+### Core Features
+- 🛍️ Product management
+- 👤 User authentication
+- 🛒 Shopping cart
+- 📦 Order management
+- 🔐 Admin panel
 
-## Project Structure
+### Advanced Features
+- 🔍 Advanced product search and filtering
+- 📊 Analytics dashboard for sales and user behavior
+- 🔒 Enhanced security features
+- 💾 Automatic database backups
+- 📈 Performance optimizations
 
+## Security Features
+- SQL injection prevention
+- Rate limiting
+- Input sanitization
+- JWT authentication
+- Password hashing
+- Security headers with Helmet
+- Request size limiting
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Mukulgt/plush-sqlite.git
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+
+# Start the server
+npm start
 ```
-src/
-├── app/              # Next.js App Router pages
-├── components/       # Reusable UI components
-├── lib/             # Utility functions and configurations
-├── store/           # Zustand store configurations
-└── types/           # TypeScript type definitions
+
+## API Endpoints
+
+### Authentication
+- POST `/register` - Register new user
+- POST `/login` - User login
+
+### Products
+- GET `/products` - List all products
+- GET `/products/search` - Search products
+- POST `/admin/products` - Add new product (Admin)
+
+### Orders
+- POST `/orders` - Create order
+- GET `/orders` - Get user orders
+- GET `/admin/orders` - Get all orders (Admin)
+
+### Analytics (Admin)
+- GET `/admin/analytics/products` - Product analytics
+- GET `/admin/analytics/users` - User analytics
+
+## Environment Variables
+
+```env
+PORT=3000
+JWT_SECRET=your-secret-key
+NODE_ENV=development
 ```
 
-## Database Schema
+## Database Backups
+- Automatic backups every 6 hours
+- Manual backup via `/admin/backup` endpoint
+- Last 5 backups retained
 
-The application uses SQLite with Prisma ORM and includes the following models:
-- User
-- Product
-- Category
-- Order
-- OrderItem
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first.
 
 ## License
-
-MIT
+[MIT](https://choosealicense.com/licenses/mit/)

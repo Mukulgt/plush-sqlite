@@ -1,0 +1,181 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Lucknavi Anarkali Suit",
+      "price": 18999,
+      "image": "images/products/lucknavi anarkali suit with drapped duppata.webp",
+      "category": "Anarkali",
+      "description": "Elegant Lucknavi Anarkali suit with intricate embroidery",
+      "inStock": true
+    },
+    {
+      "id": 2,
+      "name": "Indo-Western Coord Set",
+      "price": 22999,
+      "image": "images/products/indowestern coord set 1.webp",
+      "category": "Coord Sets",
+      "description": "Modern Indo-Western coordination set for contemporary look",
+      "inStock": true
+    },
+    {
+      "id": 3,
+      "name": "Draped Coord Set",
+      "price": 24999,
+      "image": "images/products/drapped coord set 1.webp",
+      "category": "Coord Sets",
+      "description": "Stylish draped coordination set with unique design",
+      "inStock": true
+    },
+    {
+      "id": 4,
+      "name": "Brocade Suit Set",
+      "price": 19999,
+      "image": "images/products/brocade suit set 1.webp",
+      "category": "Suit Sets",
+      "description": "Traditional brocade suit set with rich detailing",
+      "inStock": true
+    },
+    {
+      "id": 5,
+      "name": "Exclusive Indo-Western Set",
+      "price": 26999,
+      "image": "images/products/exclusive indowestern coord set 1.webp",
+      "category": "Coord Sets",
+      "description": "Premium Indo-Western set with exclusive design",
+      "inStock": true
+    },
+    {
+      "id": 6,
+      "name": "Designer Coord Set",
+      "price": 21999,
+      "image": "images/products/designer coord set.webp",
+      "category": "Coord Sets",
+      "description": "Designer coordination set with contemporary patterns",
+      "inStock": true
+    },
+    {
+      "id": 7,
+      "name": "Mirror Work Coord Set",
+      "price": 23999,
+      "image": "images/products/mirror coord set with duppata 1.webp",
+      "category": "Coord Sets",
+      "description": "Stunning coord set with intricate mirror work",
+      "inStock": true
+    },
+    {
+      "id": 8,
+      "name": "Floral Anarkali",
+      "price": 17999,
+      "image": "images/products/floral anarkali 3.webp",
+      "category": "Anarkali",
+      "description": "Beautiful Anarkali with floral patterns",
+      "inStock": true
+    },
+    {
+      "id": 9,
+      "name": "Asymmetrical Kaftan Set",
+      "price": 20999,
+      "image": "images/products/asymmeterical kaftan set 1.webp",
+      "category": "Kaftan",
+      "description": "Modern asymmetrical kaftan set with unique cut",
+      "inStock": true
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Anarkali",
+      "description": "Traditional Anarkali suits and dresses"
+    },
+    {
+      "id": 2,
+      "name": "Coord Sets",
+      "description": "Coordinated sets for a complete look"
+    },
+    {
+      "id": 3,
+      "name": "Suit Sets",
+      "description": "Traditional and modern suit sets"
+    },
+    {
+      "id": 4,
+      "name": "Kaftan",
+      "description": "Modern and comfortable kaftan sets"
+    }
+  ],
+  "customers": [
+    {
+      "id": 1,
+      "name": "Priya Sharma",
+      "email": "priya.sharma@example.com",
+      "phone": "+91-9876543210",
+      "address": "123 Main St, Mumbai, Maharashtra",
+      "orderCount": 1,
+      "totalSpent": 18999,
+      "registeredDate": "2024-12-15T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Sneha Patel",
+      "email": "sneha.patel@example.com",
+      "phone": "+91-9876543211",
+      "address": "456 Park Road, Delhi",
+      "orderCount": 1,
+      "totalSpent": 47998,
+      "registeredDate": "2024-12-20T10:30:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Meera Reddy",
+      "email": "meera.reddy@example.com",
+      "phone": "+91-9876543212",
+      "address": "789 Lake View, Bangalore",
+      "orderCount": 1,
+      "totalSpent": 19999,
+      "registeredDate": "2025-01-05T14:45:00Z"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "user@example.com",
+      "password": "hashed_password_here",
+      "name": "John Doe",
+      "role": "user",
+      "createdAt": "2024-01-23"
+    }
+  ],
+  "admins": [
+    {
+      "id": 1,
+      "email": "admin@plushoff.com",
+      "password": "hashed_admin_password",
+      "name": "Admin User",
+      "role": "admin",
+      "permissions": ["manage_inventory", "manage_orders", "manage_users"]
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 1,
+      "products": [
+        {
+          "productId": 1,
+          "quantity": 2,
+          "price": 18999
+        }
+      ],
+      "totalAmount": 37998,
+      "status": "pending",
+      "createdAt": "2024-01-23",
+      "shippingAddress": {
+        "street": "123 Main St",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400001"
+      }
+    }
+  ]
+}

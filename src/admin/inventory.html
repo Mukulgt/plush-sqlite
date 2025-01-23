@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plushoff Admin - Inventory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-sm">
+            <div class="p-4 border-b">
+                <img src="../images/logo.png" alt="Plushoff Logo" class="h-8">
+            </div>
+            <nav class="p-4">
+                <div class="space-y-2">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="orders.html" class="flex items-center space-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-shopping-cart-line"></i>
+                        <span>Orders</span>
+                    </a>
+                    <a href="products.html" class="flex items-center space-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-t-shirt-line"></i>
+                        <span>Products</span>
+                    </a>
+                    <a href="inventory.html" class="flex items-center space-x-2 text-gray-900 p-2 rounded-lg bg-gray-100">
+                        <i class="ri-store-line"></i>
+                        <span>Inventory</span>
+                    </a>
+                    <a href="customers.html" class="flex items-center space-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-user-line"></i>
+                        <span>Customers</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <header class="bg-white shadow-sm">
+                <div class="flex items-center justify-between p-4">
+                    <h1 class="text-xl font-semibold">Inventory Management</h1>
+                    <div class="flex items-center space-x-4">
+                        <button class="text-gray-600 hover:text-gray-900">
+                            <i class="ri-notification-line text-xl"></i>
+                        </button>
+                        <div class="flex items-center space-x-2">
+                            <img src="../images/avatar.png" alt="Admin" class="w-8 h-8 rounded-full">
+                            <span class="text-gray-900">Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="p-6">
+                <!-- Quick Actions -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold mb-4">Quick Stock Update</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">Product</label>
+                                <select class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-gray-400">
+                                    <option value="">Select Product</option>
+                                    <option value="1">Black Velvet Coord Set - M</option>
+                                    <option value="2">Pink Anarkali Set - L</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 mb-1">Add/Remove Stock</label>
+                                <div class="flex space-x-2">
+                                    <input type="number" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-gray-400" placeholder="Quantity">
+                                    <button class="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold mb-4">Low Stock Items</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between text-sm">
+                                <span>Black Velvet Coord Set - M</span>
+                                <span class="text-red-500">2 left</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <span>Pink Anarkali Set - L</span>
+                                <span class="text-red-500">3 left</span>
+                            </div>
+                            <button class="w-full mt-2 px-4 py-2 border rounded-lg hover:bg-gray-50">View All</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold mb-4">Bulk Actions</h3>
+                        <div class="space-y-3">
+                            <button class="w-full px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                <i class="ri-upload-line mr-2"></i> Import Inventory
+                            </button>
+                            <button class="w-full px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                <i class="ri-download-line mr-2"></i> Export Inventory
+                            </button>
+                            <button class="w-full px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                <i class="ri-file-list-line mr-2"></i> Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Table -->
+                <div class="bg-white rounded-lg shadow-sm">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <h2 class="text-lg font-semibold">Current Inventory</h2>
+                        <div class="flex space-x-2">
+                            <input type="text" placeholder="Search products..." class="px-3 py-1 border rounded focus:outline-none focus:border-gray-400">
+                            <select class="px-3 py-1 border rounded focus:outline-none focus:border-gray-400">
+                                <option value="">All Categories</option>
+                                <option value="coord">Coord Sets</option>
+                                <option value="ethnic">Ethnic Wear</option>
+                                <option value="dresses">Dresses</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-gray-600 text-sm border-b">
+                                    <th class="p-4">Product Name</th>
+                                    <th class="p-4">SKU</th>
+                                    <th class="p-4">Category</th>
+                                    <th class="p-4">Size</th>
+                                    <th class="p-4">In Stock</th>
+                                    <th class="p-4">Price</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="p-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="../images/products/black velvet coord set 1.webp" alt="Product" class="w-12 h-12 object-cover rounded">
+                                            <span>Black Velvet Coord Set</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">BVC-001-M</td>
+                                    <td class="p-4">Coord Sets</td>
+                                    <td class="p-4">M</td>
+                                    <td class="p-4">
+                                        <input type="number" value="2" class="w-20 px-2 py-1 border rounded text-center">
+                                    </td>
+                                    <td class="p-4">₹4,999</td>
+                                    <td class="p-4">
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">Low Stock</span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 hover:text-blue-500" title="Edit">
+                                                <i class="ri-pencil-line"></i>
+                                            </button>
+                                            <button class="p-1 hover:text-green-500" title="Update Stock">
+                                                <i class="ri-stack-line"></i>
+                                            </button>
+                                            <button class="p-1 hover:text-red-500" title="Archive">
+                                                <i class="ri-archive-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="p-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="../images/products/A line anarkali set 1.webp" alt="Product" class="w-12 h-12 object-cover rounded">
+                                            <span>Pink Anarkali Set</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">PAS-001-L</td>
+                                    <td class="p-4">Ethnic Wear</td>
+                                    <td class="p-4">L</td>
+                                    <td class="p-4">
+                                        <input type="number" value="3" class="w-20 px-2 py-1 border rounded text-center">
+                                    </td>
+                                    <td class="p-4">₹5,999</td>
+                                    <td class="p-4">
+                                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">Low Stock</span>
+                                    </td>
+                                    <td class="p-4">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 hover:text-blue-500" title="Edit">
+                                                <i class="ri-pencil-line"></i>
+                                            </button>
+                                            <button class="p-1 hover:text-green-500" title="Update Stock">
+                                                <i class="ri-stack-line"></i>
+                                            </button>
+                                            <button class="p-1 hover:text-red-500" title="Archive">
+                                                <i class="ri-archive-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-4 border-t">
+                        <div class="flex items-center justify-between">
+                            <div class="text-gray-600 text-sm">
+                                Showing 1 to 2 of 2 entries
+                            </div>
+                            <div class="flex space-x-1">
+                                <button class="px-3 py-1 border rounded hover:bg-gray-50 text-gray-400" disabled>Previous</button>
+                                <button class="px-3 py-1 bg-gray-900 text-white rounded">1</button>
+                                <button class="px-3 py-1 border rounded hover:bg-gray-50 text-gray-400" disabled>Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

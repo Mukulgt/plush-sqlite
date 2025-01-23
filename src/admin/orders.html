@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plushoff Admin - Orders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-sm">
+            <div class="p-4 border-b">
+                <img src="../images/logo.png" alt="Plushoff Logo" class="h-8">
+            </div>
+            <nav class="p-4">
+                <div class="space-y-2">
+                    <a href="index.html" class="flex items-center space-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="orders.html" class="flex items-center space-x-2 text-gray-900 p-2 rounded-lg bg-gray-100">
+                        <i class="ri-shopping-cart-line"></i>
+                        <span>Orders</span>
+                    </a>
+                    <a href="products.html" class="flex items-center space-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-t-shirt-line"></i>
+                        <span>Products</span>
+                    </a>
+                    <a href="inventory.html" class="flex items-center space-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-store-line"></i>
+                        <span>Inventory</span>
+                    </a>
+                    <a href="customers.html" class="flex items-center space-x-2 text-gray-600 p-2 rounded-lg hover:bg-gray-100">
+                        <i class="ri-user-line"></i>
+                        <span>Customers</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <header class="bg-white shadow-sm">
+                <div class="flex items-center justify-between p-4">
+                    <h1 class="text-xl font-semibold">Orders</h1>
+                    <div class="flex items-center space-x-4">
+                        <button class="text-gray-600 hover:text-gray-900">
+                            <i class="ri-notification-line text-xl"></i>
+                        </button>
+                        <div class="flex items-center space-x-2">
+                            <img src="../images/avatar.png" alt="Admin" class="w-8 h-8 rounded-full">
+                            <span class="text-gray-900">Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="p-6">
+                <!-- Order Filters -->
+                <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex-1 min-w-[200px]">
+                            <label class="block text-sm text-gray-600 mb-1">Search Orders</label>
+                            <input type="text" placeholder="Order ID or Customer Name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-gray-400">
+                        </div>
+                        <div class="w-40">
+                            <label class="block text-sm text-gray-600 mb-1">Status</label>
+                            <select class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-gray-400">
+                                <option value="">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="processing">Processing</option>
+                                <option value="shipped">Shipped</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="w-40">
+                            <label class="block text-sm text-gray-600 mb-1">Date Range</label>
+                            <select class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-gray-400">
+                                <option value="today">Today</option>
+                                <option value="yesterday">Yesterday</option>
+                                <option value="last7days">Last 7 Days</option>
+                                <option value="last30days">Last 30 Days</option>
+                                <option value="custom">Custom Range</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button class="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="bg-white rounded-lg shadow-sm">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <h2 class="text-lg font-semibold">All Orders</h2>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 border rounded hover:bg-gray-50">
+                                <i class="ri-download-line mr-1"></i> Export
+                            </button>
+                            <button class="px-3 py-1 border rounded hover:bg-gray-50">
+                                <i class="ri-printer-line mr-1"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left text-gray-600 text-sm border-b">
+                                    <th class="p-4">Order ID</th>
+                                    <th class="p-4">Date</th>
+                                    <th class="p-4">Customer</th>
+                                    <th class="p-4">Products</th>
+                                    <th class="p-4">Amount</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4">Payment</th>
+                                    <th class="p-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="p-4">#ORD-001</td>
+                                    <td class="p-4">23 Jan, 2025</td>
+                                    <td class="p-4">
+                                        <div>Priya Sharma</div>
+                                        <div class="text-sm text-gray-500">+91 98765 43210</div>
+                                    </td>
+                                    <td class="p-4">
+                                        <div>Black Velvet Coord Set</div>
+                                        <div class="text-sm text-gray-500">Size: M, Qty: 1</div>
+                                    </td>
+                                    <td class="p-4">₹4,999</td>
+                                    <td class="p-4">
+                                        <select class="px-2 py-1 border rounded-lg text-sm focus:outline-none focus:border-gray-400">
+                                            <option value="processing" selected>Processing</option>
+                                            <option value="confirmed">Confirmed</option>
+                                            <option value="shipped">Shipped</option>
+                                            <option value="delivered">Delivered</option>
+                                            <option value="cancelled">Cancelled</option>
+                                        </select>
+                                    </td>
+                                    <td class="p-4"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">Paid</span></td>
+                                    <td class="p-4">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 hover:text-blue-500" title="View Details">
+                                                <i class="ri-eye-line"></i>
+                                            </button>
+                                            <button class="p-1 hover:text-green-500" title="Print Invoice">
+                                                <i class="ri-printer-line"></i>
+                                            </button>
+                                            <button class="p-1 hover:text-red-500" title="Cancel Order">
+                                                <i class="ri-close-circle-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="p-4">#ORD-002</td>
+                                    <td class="p-4">23 Jan, 2025</td>
+                                    <td class="p-4">
+                                        <div>Anjali Patel</div>
+                                        <div class="text-sm text-gray-500">+91 98765 43211</div>
+                                    </td>
+                                    <td class="p-4">
+                                        <div>Pink Anarkali Set</div>
+                                        <div class="text-sm text-gray-500">Size: L, Qty: 1</div>
+                                    </td>
+                                    <td class="p-4">₹5,999</td>
+                                    <td class="p-4">
+                                        <select class="px-2 py-1 border rounded-lg text-sm focus:outline-none focus:border-gray-400">
+                                            <option value="processing">Processing</option>
+                                            <option value="confirmed">Confirmed</option>
+                                            <option value="shipped">Shipped</option>
+                                            <option value="delivered" selected>Delivered</option>
+                                            <option value="cancelled">Cancelled</option>
+                                        </select>
+                                    </td>
+                                    <td class="p-4"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">Paid</span></td>
+                                    <td class="p-4">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 hover:text-blue-500" title="View Details">
+                                                <i class="ri-eye-line"></i>
+                                            </button>
+                                            <button class="p-1 hover:text-green-500" title="Print Invoice">
+                                                <i class="ri-printer-line"></i>
+                                            </button>
+                                            <button class="p-1 hover:text-red-500" title="Cancel Order">
+                                                <i class="ri-close-circle-line"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-4 border-t">
+                        <div class="flex items-center justify-between">
+                            <div class="text-gray-600 text-sm">
+                                Showing 1 to 2 of 2 entries
+                            </div>
+                            <div class="flex space-x-1">
+                                <button class="px-3 py-1 border rounded hover:bg-gray-50 text-gray-400" disabled>Previous</button>
+                                <button class="px-3 py-1 bg-gray-900 text-white rounded">1</button>
+                                <button class="px-3 py-1 border rounded hover:bg-gray-50 text-gray-400" disabled>Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
